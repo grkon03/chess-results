@@ -16,9 +16,17 @@ class ResultsController < ApplicationController
     @games = Game.search(@search_parameter).take(100)
   end
 
+  def show
+    set_game
+  end
+
   private
 
   def search_params
     GameSearchParameter.new(params.fetch(:game_search_parameter, {}))
+  end
+
+  def set_game
+    @game = Game.find_by(id: params[:id])
   end
 end
